@@ -20,7 +20,9 @@ def create_repo_list_csv():
     file_name = "Top194JavaStarsRepo_" + str(datetime.now().date()) + ".csv"
     with open(file_name, 'w', newline='') as csvfile:
         write_to_csv = csv.writer(csvfile, delimiter=',')
-        write_to_csv.writerow(['repo_name', 'repo_user', 'html_url'])
+        write_to_csv.writerow(['name', 'user', 'html_url', 'id', 'node_id',
+                               'description', 'stars', 'forks', 'prs', 'language', 'api_url',
+                               'created_at', 'updated_at', 'pushed_at', 'license'])
     return file_name
 
 
@@ -101,7 +103,7 @@ def get_pr_nums(owner, repo_name):
         text = text.get_text().replace("\n", "").replace(" ", "")
 
         if "Open" in text:
-            text = text.strip("Open")
+            text = text.strip("Open").replace(",", "")
             open_pr_num = int(text)
         elif "Closed" in text:
             text = text.strip("Closed").replace(",", "")

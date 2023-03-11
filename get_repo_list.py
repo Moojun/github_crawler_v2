@@ -2,6 +2,7 @@ import requests
 import csv
 from module import create_repo_list_csv
 from module import handle_request_exception
+from module import get_pr_nums
 from settings import headers
 from settings import params
 
@@ -39,14 +40,17 @@ def main():
                 repo_name = item['name']
                 repo_user = item['owner']['login']
                 repo_html_url = item['html_url']
+                repo_id = item['id']
+                repo_node_id = item['node_id']
                 repo_description = item['description']
                 repo_stars = item['stargazers_count']
                 repo_forks = item['forks_count']
-                repo_open_issues_count = item['open_issues_count']
-                repo_main_language = item['language']
+                repo_prs = get_pr_nums(repo_user, repo_name)
+                repo_language = item['language']
                 repo_api_url = item['url']
-                repo_crated_at = item['created_at']
+                repo_created_at = item['created_at']
                 repo_updated_at = item['updated_at']
+                repo_pushed_at = item['pushed_at']
 
                 # Check the license
                 if item['license']:
@@ -54,7 +58,10 @@ def main():
                 else:
                     repo_license = "NO LICENSE"
 
-                write_to_csv.writerow([repo_name, repo_user, repo_html_url])
+                write_to_csv.writerow([repo_name, repo_user, repo_html_url, repo_id,
+                                       repo_node_id, repo_description, repo_stars,
+                                       repo_forks, repo_prs, repo_language, repo_api_url,
+                                       repo_created_at, repo_updated_at, repo_pushed_at, repo_license])
 
         params['page'] += 1
 
