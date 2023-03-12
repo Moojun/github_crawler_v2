@@ -26,16 +26,6 @@ def create_repo_list_csv():
     return file_name
 
 
-# Create csv file of Repository info
-def create_repo_list_info_csv():
-    file_name = "Top194JavaStarsRepoInfo_" + str(datetime.now().date()) + ".csv"
-    with open(file_name, 'w', newline='') as csvfile:
-        write_to_csv = csv.writer(csvfile, delimiter=',')
-        write_to_csv.writerow(["name", 'id', 'node_id', 'owner', 'stars', 'forks', 'prs', 'language',
-                               'created_at', 'updated_at', 'pushed_at', 'description'])
-    return file_name
-
-
 def print_log(msg):
     t = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
     print(f"[{t}] {msg}")
